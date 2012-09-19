@@ -1,0 +1,11 @@
+.DS_Store
+.project
+.pydevproject
+.settings
+
+*.pyc
+*.pyo
+
+Counter.egg-info/
+dist/
+
