@@ -11,7 +11,7 @@ Introduction
 Installation
 ------------
 
-To install **Foundations** from the `Python Package Index <http://pypi.python.org/pypi/Foundations>`_ you can issue this command in a shell::
+To install **Counter** from the `Python Package Index <http://pypi.python.org/pypi/Foundations>`_ you can issue this command in a shell::
 
 	pip install Counter
 
