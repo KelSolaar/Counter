@@ -25,7 +25,7 @@ from itertools import repeat, ifilter
 #***	Module attributes.
 #**********************************************************************************************************************
 __author__ = "Raymond Hettingerl"
-__copyright__ = "Copyright (C) 2008 - 2012 - Thomas Mansencal"
+__copyright__ = "Copyright (C) 2008 - 2013 - Thomas Mansencal"
 __license__ = "MIT - http://opensource.org/licenses/mit-license.php"
 __maintainer__ = "Thomas Mansencal"
 __email__ = "thomas.mansencal@gmail.com"
