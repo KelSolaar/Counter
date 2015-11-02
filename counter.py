@@ -19,7 +19,11 @@
 #**********************************************************************************************************************
 from operator import itemgetter
 from heapq import nlargest
-from itertools import repeat, ifilter
+from itertools import repeat
+try:
+	from itertools import ifilter
+except ImportError:
+	pass
 
 #**********************************************************************************************************************
 #***	Module attributes.
@@ -70,9 +74,13 @@ class Counter(dict):
 		[('a', 5), ('r', 2), ('b', 2)]
 
 		'''
+                try:
+                        iteritems = self.iteritems()
+                except AttributeError:
+                        iteritems = iter(self)
 		if n is None:
-			return sorted(self.iteritems(), key=itemgetter(1), reverse=True)
-		return nlargest(n, self.iteritems(), key=itemgetter(1))
+			return sorted(iteritems, key=itemgetter(1), reverse=True)
+		return nlargest(n, iteritems, key=itemgetter(1))
 
 	def elements(self):
 		'''Iterator over elements repeating each as many times as its count.
@@ -85,7 +93,11 @@ class Counter(dict):
 		elements() will ignore it.
 
 		'''
-		for elem, count in self.iteritems():
+                try:
+                        iteritems = self.iteritems()
+                except AttributeError:
+                        iteritems = iter(self)
+		for elem, count in iteritems:
 			for _ in repeat(None, count):
 				yield elem
 
@@ -113,7 +125,11 @@ class Counter(dict):
 			if hasattr(iterable, 'iteritems'):
 				if self:
 					self_get = self.get
-					for elem, count in iterable.iteritems():
+					try:
+						iteritems = self.iteritems()
+					except AttributeError:
+						iteritems = iter(self)
+					for elem, count in iteritems:
 						self[elem] = self_get(elem, 0) + count
 				else:
 					dict.update(self, iterable) # fast path when counter is empty
@@ -211,7 +227,11 @@ class Counter(dict):
 		result = Counter()
 		if len(self) < len(other):
 			self, other = other, self
-		for elem in ifilter(self.__contains__, other):
+		try:
+			elems = ifilter(self.__contains__, other)
+		except NameError:
+			elems = filter(self.__contains__, other)
+		for elem in elems:
 			newcount = _min(self[elem], other[elem])
 			if newcount > 0:
 				result[elem] = newcount
@@ -220,4 +240,4 @@ class Counter(dict):
 
 if __name__ == '__main__':
 	import doctest
-	print doctest.testmod()
+	print(doctest.testmod())
